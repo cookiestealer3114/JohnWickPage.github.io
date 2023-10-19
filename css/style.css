@@ -41,6 +41,19 @@ body {
   font-weight: 500;
   line-height: 14px;
 }
+.text-h3 {
+  color: var(--text-color);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.container {
+  width: 1830px;
+  margin: 0 auto;
+}
 
 .header_box {
   width: 100%;
@@ -48,6 +61,7 @@ body {
   background-color: var(--white-color);
   display: flex;
   justify-content: space-between;
+  margin-bottom: 45px;
 }
 .search_bar {
   margin: 30px 0 30px 35px;
@@ -98,4 +112,44 @@ body {
 }
 .dropdown-arrow {
   margin-left: 10px;
+}
+
+.date_selection {
+  margin-bottom: 20px;
+}
+.date_selection-container {
+  display: flex;
+  justify-content: space-between;
+}
+.date_interval-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+.calendar-icon {
+  width: 18px;
+  height: 18px;
+}
+.date_interval-text {
+  margin: 0px;
+}
+.date_precise_selection-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+.date_precise_selection-text {
+  margin: 0px;
 }
