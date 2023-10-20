@@ -24,6 +24,7 @@ body {
   --text-color: #64748b;
   --tailgrids-text-color: #637381;
   --tailgrids-black-color: #212b36;
+  --dark-color: #1c2434;
 }
 .text-h1 {
   /* 14/20 Regular */
@@ -51,6 +52,15 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: 22px;
+}
+.text-h4 {
+  /* 28/34 H4 */
+  color: var(--dark-color);
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
 }
 
 .container {
@@ -161,8 +171,11 @@ body {
   flex-shrink: 0;
 }
 .stats_grid {
+  margin: 0 auto;
   background-color: #fff;
   display: grid;
+  justify-content: center;
+  align-items: center;
   gap: 0px;
   grid-template-columns: repeat(4, 1fr);
   border-radius: 2px;
@@ -170,19 +183,46 @@ body {
   background: var(--white-color);
   box-shadow: 0px 8px 13px -3px rgba(0, 0, 0, 0.07);
 }
-.stats_grid-item {
+.stats_grid_item {
   max-width: 322px;
   margin: 30px 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.stats_grid_visitors {
+.value {
+  color: var(--dark-color);
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
 }
-.stats_text {
+.title {
+  color: var(--text-color);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
 }
-.text-h3 {
+.difference {
+  color: var(--green-color);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: right;
 }
-.stats_grid_pageviews {
+.difference.yellow {
+  color: var(--yellow-color);
 }
-.stats_grid_bounce_rate {
+
+.isRise {
+  width: 18px;
+  height: 18px;
 }
-.stats_grid_visit_duration {
+.content {
+  margin-right: 12px;
 }
