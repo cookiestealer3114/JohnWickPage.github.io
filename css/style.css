@@ -264,6 +264,14 @@ body {
   }
 }
 @media only screen and (max-width: 768px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .search_bar {
+    align-items: center;
+    flex-wrap: nowrap;
+  }
   .stats_grid_item {
     flex-wrap: wrap;
     padding: 30px 10px;
