@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const content = document.createElement("div");
         content.className = "content";
 
+        const risedif = document.createElement("div");
+        risedif.className = "risedif";
+
         const valueElement = document.createElement("div");
         valueElement.className = "value";
         if (item.value >= 1000) {
@@ -47,9 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
           differenceElement.classList.add("yellow");
         }
 
+        risedif.appendChild(isRiseElement);
+        risedif.appendChild(differenceElement);
+
         stats_grid_item.appendChild(content);
-        stats_grid_item.appendChild(isRiseElement);
-        stats_grid_item.appendChild(differenceElement);
+        stats_grid_item.appendChild(risedif);
 
         stats_grid.appendChild(stats_grid_item);
       });
