@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const stats_grid_items = document.querySelectorAll(".stats_grid_item");
+  const stats_grid = document.querySelector(".stats_grid");
 
   fetch("legends.json")
     .then((response) => response.json())
     .then((data) => {
-      data.forEach((item, index) => {
-        const stats_grid_item = stats_grid_items[index];
+      data.forEach((item) => {
+        const stats_grid_item = document.createElement("div");
+        stats_grid_item.className = "stats_grid_item";
 
         const content = document.createElement("div");
         content.className = "content";
@@ -49,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
         stats_grid_item.appendChild(content);
         stats_grid_item.appendChild(isRiseElement);
         stats_grid_item.appendChild(differenceElement);
+
+        stats_grid.appendChild(stats_grid_item);
       });
     })
     .catch((error) => console.error("JSON LOADING ERROR", error));
