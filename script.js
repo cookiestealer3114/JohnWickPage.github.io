@@ -12,10 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const valueElement = document.createElement("div");
         valueElement.className = "value";
-        valueElement.textContent =
-          item.value >= 1000
-            ? (item.value / 1000).toFixed(1) + "K"
-            : item.value;
+        if (item.value >= 1000) {
+          valueElement.textContent =
+            item.value % 1000 === 0
+              ? (item.value / 1000).toFixed(0) + "K"
+              : (item.value / 1000).toFixed(1) + "K";
+        } else {
+          valueElement.textContent = item.value;
+        }
 
         const titleElement = document.createElement("div");
         titleElement.className = "title";
