@@ -13,6 +13,7 @@
     <title>Mr. Wick</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <header class="header">
@@ -75,11 +76,16 @@
       </div>
     </section>
 
-    <!-- <section class="analytics">
+    <section class="analytics">
       <div class="container">
-        <h6 class="text-h6_analytics text-h6">Visitors Analytics</h6>
+        <div class="analytics_flexbox">
+          <h6 class="text-h6_analytics text-h6">Visitors Analytics</h6>
+          <div class="chartbox">
+            <canvas class="myChart"></canvas>
+          </div>
+        </div>
       </div>
-    </section> -->
+    </section>
 
     <section class="stats">
       <div class="container">

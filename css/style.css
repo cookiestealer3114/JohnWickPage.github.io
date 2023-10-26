@@ -175,15 +175,6 @@ body {
   margin: 0px;
 }
 
-.text-h6_analytics {
-  padding-top: 30px;
-  padding-left: 35px;
-}
-.analytics {
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
 .stats {
   flex-shrink: 0;
 }
@@ -255,6 +246,26 @@ body {
 }
 .content {
   margin-right: 12px;
+}
+
+.analytics {
+  margin-bottom: 30px;
+}
+.analytics_flexbox {
+  /* display: flex;
+  flex-wrap: wrap; */
+  border-radius: 2px;
+  border: 1px solid var(--stroke);
+  background: var(--white-color);
+  box-shadow: 0px 8px 13px -3px rgba(0, 0, 0, 0.07);
+}
+.text-h6_analytics {
+  margin-top: 30px;
+  margin-left: 35px;
+}
+.chartbox {
+  height: 500px;
+  padding: 0 30px 30px 30px;
 }
 
 @media screen and (max-width: 1280px) {
