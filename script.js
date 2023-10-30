@@ -62,126 +62,119 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => console.error("JSON LOADING ERROR", error));
 });
-// chartAreaBorder - плагин для бордера
-// const chartAreaBorder = {
-//   id: "chartAreaBorder",
-//   beforeDraw(chart, args, options) {
-//     const {
-//       ctx,
-//       chartArea: { left, top, width, height },
-//     } = chart;
-//     ctx.save();
-//     ctx.strokeStyle = options.borderColor;
-//     ctx.lineWidth = options.borderWidth;
-//     ctx.setLineDash(options.borderDash || []);
-//     ctx.lineDashOffset = options.borderDashOffset;
-//     ctx.strokeRect(left, top, width, height);
-//     ctx.restore();
-//   },
-// };
+var myData;
 // Код для графика Visitors Analytics
 document.addEventListener("DOMContentLoaded", function () {
   fetch("analytics.json")
     .then((response) => response.json())
     .then((data) => {
-      const days = data.days.map((entry) => entry.day);
-      const values = data.days.map((entry) => entry.value);
-      const maxValue = Math.max(...values);
-      const yAxisMax = Math.ceil(maxValue / 100) * 100;
-
-      const canvasElements = document.querySelectorAll(".myChart");
-
-      canvasElements.forEach((canvas) => {
-        const ctx = canvas.getContext("2d");
-
-        new Chart(ctx, {
-          // plugins: [chartAreaBorder],
-          // Включает плагин
-          type: "bar",
-          data: {
-            labels: days,
-            datasets: [
-              {
-                label: "Значение",
-                data: values,
-                backgroundColor: "#3C50E0",
-                borderWidth: 2,
-                borderRadius: 15,
-              },
-            ],
-          },
-          options: {
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              // chartAreaBorder: {
-              //   borderWidth: 1,
-              //   borderDash: [5, 5],
-              //   borderDashOffset: 2,
-              // },
-              // Задает значения бордера
-            },
-            scales: {
-              x: {
-                type: "linear",
-                position: "bottom",
-                ticks: {
-                  stepSize: 1,
-                  font: {
-                    color: "#64748b",
-                    size: 14,
-                    lineHeight: 2.2,
-                    family: "Poppins",
-                    style: "normal",
-                    weight: 500,
-                  },
-                },
-                grid: {
-                  display: false,
-                  color: "#E2E8F0",
-                  offset: true,
-                  drawBorder: false,
-                },
-              },
-              y: {
-                ticks: {
-                  min: 0,
-                  max: yAxisMax,
-                  stepSize: yAxisMax / 4,
-                  callback: function (value, index, values) {
-                    return value.toFixed(0);
-                  },
-                  callback: function (value, index) {
-                    return " " + value;
-                  },
-                  font: {
-                    color: "#64748b",
-                    size: 14,
-                    lineHeight: 2.2,
-                    family: "Poppins",
-                    style: "normal",
-                    weight: 500,
-                    align: "right",
-                  },
-                },
-                grid: {
-                  display: true,
-                  drawBorder: false,
-                  color: "#E2E8F0",
-                },
-
-                border: {
-                  dash: [10, 5],
-                },
-              },
-            },
-          },
-        });
-
-        // canvas.style.height = "500px";
-      });
+      this.myData = data;
+      console.log(this.myData);
+      drawChart(this.myData, "september2023");
     })
     .catch((error) => console.error("JSON LOADING ERROR", error));
+
+  const month_box = document.getElementById("month_box");
+  console.log(month_box, "------");
+  month_box.addEventListener("change", () => {
+    // console.log(myCol, "myCol");
+    const monthName = month_box.options[month_box.selectedIndex].value;
+    drawChart(this.myData, monthName);
+    myChart.update();
+  });
 });
+
+var myChart;
+function drawChart(data, monthName) {
+  console.log(monthName, "chart shown");
+  const days = data[monthName].days.map((entry) => entry.day);
+  const values = data[monthName].days.map((entry) => entry.value);
+  const maxValue = Math.max(...values);
+  const yAxisMax = Math.ceil(maxValue / 100) * 100;
+
+  const canvasElements = document.querySelectorAll(".myChart");
+
+  canvasElements.forEach((canvas) => {
+    const ctx = canvas.getContext("2d");
+    if (myChart) {
+      myChart.destroy();
+    }
+    myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: days,
+        datasets: [
+          {
+            label: "Значение",
+            data: values,
+            backgroundColor: "#3C50E0",
+            borderWidth: 2,
+            borderRadius: 15,
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            type: "linear",
+            position: "bottom",
+            ticks: {
+              stepSize: 1,
+              font: {
+                color: "#64748b",
+                size: 14,
+                lineHeight: 2.2,
+                family: "Poppins",
+                style: "normal",
+                weight: 500,
+              },
+            },
+            grid: {
+              display: false,
+              color: "#E2E8F0",
+              offset: true,
+              drawBorder: false,
+            },
+          },
+          y: {
+            ticks: {
+              min: 0,
+              max: yAxisMax,
+              stepSize: yAxisMax / 4,
+              callback: function (value, index, values) {
+                return value.toFixed(0);
+              },
+              callback: function (value, index) {
+                return " " + value;
+              },
+              font: {
+                color: "#64748b",
+                size: 14,
+                lineHeight: 2.2,
+                family: "Poppins",
+                style: "normal",
+                weight: 500,
+                align: "right",
+              },
+            },
+            grid: {
+              display: true,
+              drawBorder: false,
+              color: "#E2E8F0",
+            },
+
+            border: {
+              dash: [10, 5],
+            },
+          },
+        },
+      },
+    });
+  });
+}

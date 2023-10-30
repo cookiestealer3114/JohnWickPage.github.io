@@ -153,6 +153,10 @@ body {
   background: #fff;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }
+#month_box {
+  border: none;
+}
+
 .calendar-icon {
   width: 18px;
   height: 18px;
