@@ -293,3 +293,8 @@ body {
     padding: 30px 10px;
   }
 }
+@media only screen and (max-width: 608px) {
+  .profile_msg-notif {
+    display: flex;
+  }
+}
