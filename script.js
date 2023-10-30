@@ -1,78 +1,18 @@
 var myData;
 var myChart;
 document.addEventListener("DOMContentLoaded", function () {
-  const stats_grid = document.querySelector(".stats_grid");
   const month_box = document.getElementById("month_box");
-  fetch("legends.json")
-    .then((response) => response.json())
-    .then((data) => {
-      data.forEach((item) => {
-        const stats_grid_item = document.createElement("div");
-        stats_grid_item.className = "stats_grid_item";
+  const stats_grid = document.querySelector(".stats_grid");
+  const content_grid = document.querySelector(".content_grid");
 
-        const content = document.createElement("div");
-        content.className = "content";
-
-        const risedif = document.createElement("div");
-        risedif.className = "risedif";
-
-        const valueElement = document.createElement("div");
-        valueElement.className = "value";
-        if (item.value >= 1000) {
-          valueElement.textContent =
-            item.value % 1000 === 0
-              ? (item.value / 1000).toFixed(0) + "K"
-              : (item.value / 1000).toFixed(1) + "K";
-        } else {
-          valueElement.textContent = item.value;
-        }
-
-        const titleElement = document.createElement("div");
-        titleElement.className = "title";
-        titleElement.textContent = item.title;
-
-        content.appendChild(valueElement);
-        content.appendChild(titleElement);
-
-        const isRiseElement = document.createElement("div");
-        isRiseElement.className = item.isRise ? "isRise" : "isRise is-fall";
-
-        const arrowImage = document.createElement("img");
-        arrowImage.src = item.isRise
-          ? "./img/green-arrow.svg"
-          : "./img/yellow-arrow.svg";
-
-        isRiseElement.appendChild(arrowImage);
-
-        const differenceElement = document.createElement("div");
-        differenceElement.className = "difference";
-        differenceElement.textContent = item.difference + "%";
-
-        if (!item.isRise) {
-          differenceElement.classList.add("yellow");
-        }
-
-        risedif.appendChild(isRiseElement);
-        risedif.appendChild(differenceElement);
-
-        stats_grid_item.appendChild(content);
-        stats_grid_item.appendChild(risedif);
-
-        stats_grid.appendChild(stats_grid_item);
-      });
-    })
-    .catch((error) => console.error("JSON LOADING ERROR", error));
-
-  fetch("analytics.json")
+  fetch("jsons/analytics.json")
     .then((response) => response.json())
     .then((data) => {
       this.myData = data;
       console.log(this.myData);
       drawChart(this.myData, "september2023");
     })
-    .catch((error) => console.error("JSON LOADING ERROR", error));
-
-  console.log(month_box, "------");
+    .catch((error) => console.error("GRAPH JSONLOADING ERROR", error));
   month_box.addEventListener("change", () => {
     const monthName = month_box.options[month_box.selectedIndex].value;
     drawChart(this.myData, monthName);
@@ -171,4 +111,112 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+
+  fetch("jsons/legends.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((item) => {
+        const stats_grid_item = document.createElement("div");
+        stats_grid_item.className = "stats_grid_item";
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const risedif = document.createElement("div");
+        risedif.className = "risedif";
+
+        const valueElement = document.createElement("div");
+        valueElement.className = "value";
+        if (item.value >= 1000) {
+          valueElement.textContent =
+            item.value % 1000 === 0
+              ? (item.value / 1000).toFixed(0) + "K"
+              : (item.value / 1000).toFixed(1) + "K";
+        } else {
+          valueElement.textContent = item.value;
+        }
+
+        const titleElement = document.createElement("div");
+        titleElement.className = "title";
+        titleElement.textContent = item.title;
+
+        content.appendChild(valueElement);
+        content.appendChild(titleElement);
+
+        const isRiseElement = document.createElement("div");
+        isRiseElement.className = item.isRise ? "isRise" : "isRise is-fall";
+
+        const arrowImage = document.createElement("img");
+        arrowImage.src = item.isRise
+          ? "./img/green-arrow.svg"
+          : "./img/yellow-arrow.svg";
+
+        isRiseElement.appendChild(arrowImage);
+
+        const differenceElement = document.createElement("div");
+        differenceElement.className = "difference";
+        differenceElement.textContent = item.difference + "%";
+
+        if (!item.isRise) {
+          differenceElement.classList.add("yellow");
+        }
+
+        risedif.appendChild(isRiseElement);
+        risedif.appendChild(differenceElement);
+
+        stats_grid_item.appendChild(content);
+        stats_grid_item.appendChild(risedif);
+
+        stats_grid.appendChild(stats_grid_item);
+      });
+    })
+    .catch((error) => console.error("STATS JSON LOADING ERROR", error));
+
+  fetch("jsons/top_content.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((item) => {
+        const content_grid_item = document.createElement("div");
+        content_grid_item.className = "content_grid_item";
+
+        const views_uniques = document.createElement("div");
+        views_uniques.className = "views_uniques";
+
+        const urlElement = document.createElement("div");
+        urlElement.className = "url";
+        urlElement.textContent = item.url;
+
+        const viewsElement = document.createElement("div");
+        viewsElement.className = "views";
+        if (item.views >= 1000) {
+          viewsElement.textContent =
+            item.views % 1000 === 0
+              ? (item.views / 1000).toFixed(0) + "K"
+              : (item.views / 1000).toFixed(1) + "K";
+        } else {
+          viewsElement.textContent = item.views;
+        }
+
+        const uniquesElement = document.createElement("div");
+        uniquesElement.className = "uniques";
+        if (item.uniques >= 1000) {
+          uniquesElement.textContent =
+            item.uniques % 1000 === 0
+              ? (item.uniques / 1000).toFixed(0) + "K"
+              : (item.uniques / 1000).toFixed(1) + "K";
+        } else {
+          uniquesElement.textContent = item.uniques;
+        }
+
+        views_uniques.appendChild(viewsElement);
+        views_uniques.appendChild(uniquesElement);
+
+        content_grid_item.appendChild(urlElement);
+        content_grid_item.appendChild(views_uniques);
+
+        content_grid.appendChild(content_grid_item);
+      });
+    })
+    .catch((error) => console.error("TOP CONTENT JSON LOADING ERROR", error));
 });
+// Сделать графу позади URL, которая заполняется в зависимтости % заполнения uniques от общего значения views
