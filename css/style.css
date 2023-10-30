@@ -155,6 +155,7 @@ body {
 }
 #month_box {
   border: none;
+  outline: none;
 }
 
 .calendar-icon {

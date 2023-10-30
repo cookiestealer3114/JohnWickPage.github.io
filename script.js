@@ -1,7 +1,8 @@
-// Код для stats блоков
+var myData;
+var myChart;
 document.addEventListener("DOMContentLoaded", function () {
   const stats_grid = document.querySelector(".stats_grid");
-
+  const month_box = document.getElementById("month_box");
   fetch("legends.json")
     .then((response) => response.json())
     .then((data) => {
@@ -61,10 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
     .catch((error) => console.error("JSON LOADING ERROR", error));
-});
-var myData;
-// Код для графика Visitors Analytics
-document.addEventListener("DOMContentLoaded", function () {
+
   fetch("analytics.json")
     .then((response) => response.json())
     .then((data) => {
@@ -74,107 +72,103 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => console.error("JSON LOADING ERROR", error));
 
-  const month_box = document.getElementById("month_box");
   console.log(month_box, "------");
   month_box.addEventListener("change", () => {
-    // console.log(myCol, "myCol");
     const monthName = month_box.options[month_box.selectedIndex].value;
     drawChart(this.myData, monthName);
     myChart.update();
   });
-});
+  function drawChart(data, monthName) {
+    console.log(monthName, "chart shown");
+    const days = data[monthName].days.map((entry) => entry.day);
+    const values = data[monthName].days.map((entry) => entry.value);
+    const maxValue = Math.max(...values);
+    const yAxisMax = Math.ceil(maxValue / 100) * 100;
 
-var myChart;
-function drawChart(data, monthName) {
-  console.log(monthName, "chart shown");
-  const days = data[monthName].days.map((entry) => entry.day);
-  const values = data[monthName].days.map((entry) => entry.value);
-  const maxValue = Math.max(...values);
-  const yAxisMax = Math.ceil(maxValue / 100) * 100;
+    const canvasElements = document.querySelectorAll(".myChart");
 
-  const canvasElements = document.querySelectorAll(".myChart");
-
-  canvasElements.forEach((canvas) => {
-    const ctx = canvas.getContext("2d");
-    if (myChart) {
-      myChart.destroy();
-    }
-    myChart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: days,
-        datasets: [
-          {
-            label: "Значение",
-            data: values,
-            backgroundColor: "#3C50E0",
-            borderWidth: 2,
-            borderRadius: 15,
-          },
-        ],
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        scales: {
-          x: {
-            type: "linear",
-            position: "bottom",
-            ticks: {
-              stepSize: 1,
-              font: {
-                color: "#64748b",
-                size: 14,
-                lineHeight: 2.2,
-                family: "Poppins",
-                style: "normal",
-                weight: 500,
-              },
+    canvasElements.forEach((canvas) => {
+      const ctx = canvas.getContext("2d");
+      if (myChart) {
+        myChart.destroy();
+      }
+      myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: "Значение",
+              data: values,
+              backgroundColor: "#3C50E0",
+              borderWidth: 2,
+              borderRadius: 15,
             },
-            grid: {
+          ],
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
               display: false,
-              color: "#E2E8F0",
-              offset: true,
-              drawBorder: false,
             },
           },
-          y: {
-            ticks: {
-              min: 0,
-              max: yAxisMax,
-              stepSize: yAxisMax / 4,
-              callback: function (value, index, values) {
-                return value.toFixed(0);
+          scales: {
+            x: {
+              type: "linear",
+              position: "bottom",
+              ticks: {
+                stepSize: 1,
+                font: {
+                  color: "#64748b",
+                  size: 14,
+                  lineHeight: 2.2,
+                  family: "Poppins",
+                  style: "normal",
+                  weight: 500,
+                },
               },
-              callback: function (value, index) {
-                return " " + value;
-              },
-              font: {
-                color: "#64748b",
-                size: 14,
-                lineHeight: 2.2,
-                family: "Poppins",
-                style: "normal",
-                weight: 500,
-                align: "right",
+              grid: {
+                display: false,
+                color: "#E2E8F0",
+                offset: true,
+                drawBorder: false,
               },
             },
-            grid: {
-              display: true,
-              drawBorder: false,
-              color: "#E2E8F0",
-            },
+            y: {
+              ticks: {
+                min: 0,
+                max: yAxisMax,
+                stepSize: yAxisMax / 4,
+                callback: function (value, index, values) {
+                  return value.toFixed(0);
+                },
+                callback: function (value, index) {
+                  return " " + value;
+                },
+                font: {
+                  color: "#64748b",
+                  size: 14,
+                  lineHeight: 2.2,
+                  family: "Poppins",
+                  style: "normal",
+                  weight: 500,
+                  align: "right",
+                },
+              },
+              grid: {
+                display: true,
+                drawBorder: false,
+                color: "#E2E8F0",
+              },
 
-            border: {
-              dash: [10, 5],
+              border: {
+                dash: [10, 5],
+              },
             },
           },
         },
-      },
+      });
     });
-  });
-}
+  }
+});
