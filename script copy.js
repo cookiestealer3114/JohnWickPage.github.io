@@ -208,21 +208,13 @@ document.addEventListener("DOMContentLoaded", function () {
           uniquesElement.textContent = item.uniques;
         }
 
-        const graphElement = document.createElement("div");
-        graphElement.className = "graph";
-
-        const graphFill = document.createElement("div");
-        graphFill.className = "graph_fill";
-        const fillPercentage = (item.uniques / item.views) * 100;
-        graphFill.style.width = fillPercentage + "%";
-
-        graphElement.appendChild(graphFill);
-
         views_uniques.appendChild(viewsElement);
         views_uniques.appendChild(uniquesElement);
 
         content_box_item.appendChild(urlElement);
-        content_box_item.appendChild(graphElement);
+        // content_box_item.appendChild(viewsElement);
+        // content_box_item.appendChild(uniquesElement);
+
         content_box_item.appendChild(views_uniques);
 
         content_box.appendChild(content_box_item);
@@ -230,3 +222,5 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => console.error("TOP CONTENT JSON LOADING ERROR", error));
 });
+// Сделать графу позади URL, которая заполняется в зависимтости % заполнения uniques от общего значения views
+// Сделать графу с помощью layout.

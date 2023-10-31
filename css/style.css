@@ -315,9 +315,10 @@ body {
 .top_content-channel_uniques {
   margin-left: 130px;
 }
-.content_grid_item {
+.content_box_item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .views_uniques {
@@ -327,6 +328,25 @@ body {
 .uniques {
   margin-left: 165px;
 }
+
+.url {
+}
+
+.graph {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.graph_fill {
+  background-color: var(--Fill-Color, #3c50e0);
+  height: 30px;
+  border-radius: 5px;
+  width: 0;
+  max-width: 444px;
+  transition: width 0.5s ease;
+}
+
 @media screen and (max-width: 1280px) {
   .stats_grid_item {
     flex-wrap: wrap;
