@@ -274,12 +274,11 @@ body {
   padding: 0 30px 30px 30px;
 }
 
-.top_content {
+.top_blocks_right {
   float: right;
-
   width: 50%;
 }
-.top_content-channel_container {
+.top_blocks_container {
   margin-top: 30px;
   border-radius: 2px;
   border: 1px solid var(--Stroke, #e2e8f0);
@@ -322,20 +321,17 @@ body {
   position: relative;
   height: 40px;
 }
-
 .url_graph {
   left: 0;
   display: flex;
   width: 75%;
 }
-
 .url {
   position: absolute;
   left: 0;
   z-index: 2;
   padding-left: 5px;
 }
-
 .graph {
   position: absolute;
   max-width: 75%;
@@ -344,29 +340,35 @@ body {
   z-index: 1;
   left: 0;
 }
-
 .views_uniques {
   display: flex;
   justify-content: space-between;
   z-index: 2;
   width: 25%;
 }
-
 .views {
   z-index: 2;
   margin-left: 5px;
 }
-
 .uniques {
   z-index: 2;
 }
-
 .graph_fill {
   background-color: var(--gray-color);
   height: 30px;
   border-radius: 5px;
   width: 0;
   transition: width 0.5s ease;
+}
+
+.channels_box_item {
+  display: flex;
+  position: relative;
+  height: 40px;
+}
+
+.top_cities {
+  float: left;
 }
 
 @media screen and (max-width: 1280px) {

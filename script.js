@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const month_box = document.getElementById("month_box");
   const stats_grid = document.querySelector(".stats_grid");
   const content_box = document.querySelector(".content_box");
+  const channels_box = document.querySelector(".channels_box");
 
   fetch("jsons/analytics.json")
     .then((response) => response.json())
@@ -233,4 +234,96 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
     .catch((error) => console.error("TOP CONTENT JSON LOADING ERROR", error));
+
+  fetch("jsons/top_channels.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((item) => {
+        const channels_box_item = document.createElement("div");
+        channels_box_item.className = "channels_box_item";
+
+        const views_uniques = document.createElement("div");
+        views_uniques.className = "views_uniques";
+
+        const url_graph = document.createElement("div");
+        url_graph.className = "url_graph";
+
+        const urlElement = document.createElement("div");
+        urlElement.className = "url";
+        urlElement.textContent = item.url;
+
+        const graycolor = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--gray-color");
+
+        const viewsElement = document.createElement("div");
+        viewsElement.className = "views";
+        if (item.views >= 1000) {
+          viewsElement.textContent =
+            item.views % 1000 === 0
+              ? (item.views / 1000).toFixed(0) + "K"
+              : (item.views / 1000).toFixed(1) + "K";
+        } else {
+          viewsElement.textContent = item.views;
+        }
+
+        const uniquesElement = document.createElement("div");
+        uniquesElement.className = "uniques";
+        if (item.uniques >= 1000) {
+          uniquesElement.textContent =
+            item.uniques % 1000 === 0
+              ? (item.uniques / 1000).toFixed(0) + "K"
+              : (item.uniques / 1000).toFixed(1) + "K";
+        } else {
+          uniquesElement.textContent = item.uniques;
+        }
+
+        const graphElement = document.createElement("div");
+        graphElement.className = "graph";
+
+        const svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        );
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "30");
+
+        const backgroundRect = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        backgroundRect.setAttribute("width", "100%");
+        backgroundRect.setAttribute("height", "100%");
+        backgroundRect.setAttribute("fill", "transparent");
+        backgroundRect.setAttribute("border-radius", "5px");
+
+        const fillRect = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        fillRect.setAttribute("width", `${(item.uniques / item.views) * 100}%`);
+        fillRect.setAttribute("height", "100%");
+        fillRect.setAttribute("fill", graycolor);
+        fillRect.setAttribute("border-radius", "5px");
+
+        svg.appendChild(backgroundRect);
+        svg.appendChild(fillRect);
+
+        graphElement.appendChild(svg);
+
+        views_uniques.appendChild(viewsElement);
+        views_uniques.appendChild(uniquesElement);
+
+        url_graph.appendChild(urlElement);
+        url_graph.appendChild(graphElement);
+
+        channels_box_item.appendChild(url_graph);
+        channels_box_item.appendChild(views_uniques);
+
+        channels_box.appendChild(channels_box_item);
+      });
+    })
+    .catch((error) => console.error("TOP CHANNELS JSON LOADING ERROR", error));
+  // СДЕЛАТЬ border-radius у graph 5px
 });
