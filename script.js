@@ -215,14 +215,18 @@ document.addEventListener("DOMContentLoaded", function () {
         graphFill.className = "graph_fill";
         const fillPercentage = (item.uniques / item.views) * 100;
         graphFill.style.width = fillPercentage + "%";
-
         graphElement.appendChild(graphFill);
+
+        const url_graph = document.createElement("div");
+        url_graph.className = "url_graph";
 
         views_uniques.appendChild(viewsElement);
         views_uniques.appendChild(uniquesElement);
 
-        content_box_item.appendChild(urlElement);
-        content_box_item.appendChild(graphElement);
+        url_graph.appendChild(urlElement);
+        url_graph.appendChild(graphElement);
+
+        content_box_item.appendChild(url_graph);
         content_box_item.appendChild(views_uniques);
 
         content_box.appendChild(content_box_item);
