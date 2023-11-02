@@ -305,7 +305,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fillRect.setAttribute("width", `${(item.uniques / item.views) * 100}%`);
         fillRect.setAttribute("height", "100%");
         fillRect.setAttribute("fill", graycolor);
-        fillRect.setAttribute("border-radius", "5px");
+        fillRect.setAttribute("rx", "5");
+        fillRect.setAttribute("ry", "5");
 
         svg.appendChild(backgroundRect);
         svg.appendChild(fillRect);
