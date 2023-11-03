@@ -434,6 +434,15 @@ body {
   padding: 12px 30px;
 }
 .kazakhstan_map {
+  width: 100%;
+}
+
+.city_region:hover path {
+  fill: var(--primary-color);
+}
+
+.city_region:hover .cityname {
+  fill: var(--white-color);
 }
 
 .horizontal_line {
