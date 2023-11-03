@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const stats_grid = document.querySelector(".stats_grid");
   const content_box = document.querySelector(".content_box");
   const channels_box = document.querySelector(".channels_box");
+  const cities_box = document.querySelector(".cities_box");
 
   fetch("jsons/analytics.json")
     .then((response) => response.json())
@@ -326,5 +327,39 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
     .catch((error) => console.error("TOP CHANNELS JSON LOADING ERROR", error));
-  // СДЕЛАТЬ border-radius у graph 5px
+
+  fetch("jsons/top_cities_statistics.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((item) => {
+        const cities_box_item = document.createElement("div");
+        cities_box_item.className = "cities_box_item";
+
+        const city = document.createElement("div");
+        city.className = "city";
+        city.textContent = item.city;
+
+        const percentage_container = document.createElement("div");
+        percentage_container.className = "percentage_container";
+
+        const percentage = document.createElement("div");
+        percentage.className = "percentage";
+        percentage.textContent = item.percentage + "%";
+
+        const percentage_graph = document.createElement("div");
+        percentage_graph.className = "percentage_graph";
+
+        const percentage_graphFill = document.createElement("div");
+        percentage_graphFill.className = "percentage_graph_fill";
+        percentage_graphFill.style.width = item.percentage + "%";
+        percentage_graphFill.appendChild(percentage);
+        percentage_graph.appendChild(percentage_graphFill);
+
+        cities_box_item.appendChild(city);
+        cities_box_item.appendChild(percentage_graph);
+
+        cities_box.appendChild(cities_box_item);
+      });
+    })
+    .catch((error) => console.error("TOP CITIES JSON LOADING ERROR", error));
 });
